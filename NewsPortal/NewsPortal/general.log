@@ -1,0 +1,32 @@
+2022-11-21 14:57:21,985 INFO autoreload - Watching for file changes with StatReloader
+2022-11-21 14:57:24,925 INFO basehttp - "GET /news/15/ HTTP/1.1" 200 2805
+2022-11-21 14:57:26,088 INFO basehttp - "GET /news/categories/ HTTP/1.1" 200 3065
+2022-11-21 14:57:26,728 INFO basehttp - "GET /news/ HTTP/1.1" 200 6844
+2022-11-21 15:15:24,478 INFO autoreload - X:\PROJECTS\NewsPortal\NewsPortal\NewsPortal\settings.py changed, reloading.
+2022-11-21 15:15:57,495 INFO autoreload - Watching for file changes with StatReloader
+2022-11-21 15:16:19,553 INFO autoreload - X:\PROJECTS\NewsPortal\NewsPortal\NewsPortal\settings.py changed, reloading.
+2022-11-21 15:16:20,215 INFO autoreload - Watching for file changes with StatReloader
+2022-11-21 15:16:24,670 INFO basehttp - "GET /news/8/ HTTP/1.1" 200 4251
+2022-11-21 15:16:25,760 INFO basehttp - "GET /news/categories/ HTTP/1.1" 200 3065
+2022-11-21 15:16:26,173 INFO basehttp - "GET /news/ HTTP/1.1" 200 6844
+2022-11-21 15:16:48,965 INFO autoreload - X:\PROJECTS\NewsPortal\NewsPortal\NewsPortal\settings.py changed, reloading.
+2022-11-21 15:16:49,639 INFO autoreload - Watching for file changes with StatReloader
+2022-11-21 15:16:59,856 INFO autoreload - X:\PROJECTS\NewsPortal\NewsPortal\NewsPortal\settings.py changed, reloading.
+2022-11-21 15:17:00,512 INFO autoreload - Watching for file changes with StatReloader
+2022-11-21 15:17:43,638 INFO autoreload - X:\PROJECTS\NewsPortal\NewsPortal\NewsPortal\settings.py changed, reloading.
+2022-11-21 15:17:44,350 INFO autoreload - Watching for file changes with StatReloader
+2022-11-21 15:35:44,824 INFO autoreload - X:\PROJECTS\NewsPortal\NewsPortal\NewsPortal\settings.py changed, reloading.
+2022-11-21 15:35:45,545 INFO autoreload - Watching for file changes with StatReloader
+2022-11-21 15:36:47,818 INFO autoreload - X:\PROJECTS\NewsPortal\NewsPortal\NewsPortal\settings.py changed, reloading.
+2022-11-21 15:36:48,523 INFO autoreload - Watching for file changes with StatReloader
+2022-11-21 15:38:45,044 INFO autoreload - X:\PROJECTS\NewsPortal\NewsPortal\NewsPortal\settings.py changed, reloading.
+2022-11-21 15:38:45,717 INFO autoreload - Watching for file changes with StatReloader
+2022-11-21 15:39:53,314 INFO autoreload - X:\PROJECTS\NewsPortal\NewsPortal\NewsPortal\settings.py changed, reloading.
+2022-11-21 15:51:18,737 INFO autoreload - Watching for file changes with StatReloader
+2022-11-21 16:23:52,556 INFO autoreload - X:\PROJECTS\NewsPortal\NewsPortal\NewsPortal\settings.py changed, reloading.
+2022-11-21 16:23:53,274 INFO autoreload - Watching for file changes with StatReloader
+2022-11-21 16:26:37,470 INFO autoreload - X:\PROJECTS\NewsPortal\NewsPortal\NewsPortal\settings.py changed, reloading.
+2022-11-21 16:33:11,674 INFO autoreload - Watching for file changes with StatReloader
+2022-11-21 16:33:36,128 INFO autoreload - X:\PROJECTS\NewsPortal\NewsPortal\NewsPortal\settings.py changed, reloading.
+2022-11-21 16:52:34,971 INFO autoreload - Watching for file changes with StatReloader
+2022-11-21 16:53:09,867 INFO autoreload - X:\PROJECTS\NewsPortal\NewsPortal\NewsPortal\settings.py changed, reloading.

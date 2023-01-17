@@ -1,0 +1,10 @@
+{% extends "main.html" %}
+{% load i18n %}
+{% block content %}
+<h2> {% trans "Hello" %} {{request.user.username}} </h2>
+
+{% if is_not_author %}
+<button> <a href="sign/upgrade/"> {% trans "I want a premium!" %} </a> </button>
+{% endif %}
+<button> <a href="sign/logout/">{% trans "Exit" %}</a> </button>
+{% endblock %}

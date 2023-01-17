@@ -1,45 +1,82 @@
 {% extends 'base.html' %}
+{% load i18n %}
+{% load tz %}
 
-{% block title %} Все новости {% endblock title %}
-
+{% block title %} {% trans "All news:" %} {% endblock title %}
 
 {% block content %}
-<h1> Все новости: </h1>
-<h3> В данный момент доступно {{Post_all|length}} статей.</h3>
+
+{% get_current_timezone as TIME_ZONE %}
+<form action="" method="POST">
+    {% csrf_token %}
+    <label for="timezone">{% trans "Time zone:" %}</label>
+    <select name="timezone">
+        {% for tz in timezones %}
+        <option value="{{ tz }}"{% if tz == TIME_ZONE %} selected{% endif %}>{{ tz }}</option>
+        {% endfor %}
+    </select>
+    <input type="submit" value={% trans "set" %}>
+</form>
+
+{{ TIME_ZONE }}
+{{ current_time|timezone:TIME_ZONE }} <!-- Отображаем время в выбранном часовом поясе  -->
+
+<style>
+    body {background-color: {% if current_time.hour >= 19 or current_time.hour <= 7 %} darkcyan {% else %} powderblue {% endif %};}
+</style>
+
+<h1> {% trans "All news:" %} </h1>
+<h3> {% trans "There are currently" %} {{Post_all|length}} {% trans "articles available." %} </h3>
 <hr>
     {% if news_list %}
         <table>
             <tr>
-                <td> Заголовок </td>
-                <td> Автор </td>
-                <td> Дата публикации </td>
-                <td> Превью </td>
+                <td><h5> {% trans "Title" %} </h5></td>
+                <td><h5> {% trans "Author" %} </h5></td>
+                <td><h5> {% trans "Category" %} </h5></td>
+                <td><h5> {% trans "Date creation" %} </h5></td>
+                <td><h5> {% trans "Preview" %} </h5></td>
             </tr>
             {% for news in news_list %}
             <tr>
-                <td>
-                    <a href="{% url 'news_detail' news.id %}">{{ news.title|truncatechars:25|title }}</a>
-                </td>
+                <td><a href="{% url 'news_detail' news.id %}">{{ news.title|truncatechars:25|title }}</a></td>
                 <td> {{ news.author }} </td>
+                <td>
+                    {% for n in categories %}
+                        {% if n.postThrough == news %}
+                            {{ n.categoryThrough }}
+                        {% endif %}
+                    {% endfor %}
+                </td>
                 <td> {{ news.dateCreation|date:'M d Y' }} </td>
                 <td> {{ news.text|truncatechars:60 }} </td>
                 <td>
-                    <a href="{% url 'news_update' news.id %}"><u> Редактировать </u></a>
-                    <a href="{% url 'news_delete' news.id %}"><u> Удалить </u></a>
+                    {% if request.user.is_authenticated %}
+                        {% if news.author.authorUser == request.user %}
+                            <a href="{% url 'news_update' news.id %}"><u> {% trans "Edit" %} </u></a>
+                            <a href="{% url 'news_delete' news.id %}"><u> {% trans "Delete" %} </u></a>
+                        {% endif %}
+                    {% endif %}
                 </td>
             </tr>
             {% endfor %}
         </table>
 <hr>
-<a href="{% url 'news_create' %}"> Добавить статью </a> <br>
+{% if request.user.is_authenticated %}
+    {% for i in authors %}
+        {% if i.authorUser == request.user %}
+            <a href="{% url 'news_create' %}"> {% trans "Add article" %} </a> <br>
+        {% endif %}
+    {% endfor %}
+{% endif %}
     {% else %}
-        <h2> Новостей нет! </h2>
+        <h2> {% trans "No news!" %}</h2>
     {% endif %}
 
 {% if is_paginated %}
 
     {% if page_obj.has_previous %}
-        <a href="?page=1">В начало</a>
+        <a href="?page=1">{% trans "Home" %}</a>
         <a href="?page={{ page_obj.previous_page_number }}"><<<</a>
     {% endif %}
 
@@ -53,7 +90,7 @@
 
     {% if page_obj.has_next %}
         <a href="?page={{ page_obj.next_page_number }}">>>></a>
-        <a href="?page={{ page_obj.paginator.num_pages }}">В конец</a>
+        <a href="?page={{ page_obj.paginator.num_pages }}">{% trans "End" %}</a>
     {% endif %}
 {% endif %}
 {% endblock content %}

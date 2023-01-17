@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% block title %} User: {{ user_detail.username }} {% endblock title %}
+
+
+{% block content %}
+<h1>  {{ user_detail }}  </h1>
+<hr>
+<h1> {% trans "User detail:" %}</h1>
+
+<h3>{% trans "username:" %} {{ user_detail.username }}</h3>
+<h3>{% trans "first name:" %} {{ user_detail.first_name }}</h3>
+<h3>{% trans "last name:" %} {{ user_detail.last_name }}</h3>
+<h3>email: {{ user_detail.email }}</h3>
+
+<button> <a href="{% url 'user_update' user.id %}"><u> {% trans "Edit" %} </u></a> </button>
+{% endblock content %}

@@ -9,28 +9,41 @@ https://docs.djangoproject.com/en/4.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
+
 import os
 from pathlib import Path
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+load_dotenv()
+env_path = os.path.join(BASE_DIR, 'dotenv.env')
+load_dotenv(dotenv_path=env_path)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-gf@ge1a&tos2m75@ksy208fxhv1p4)*0d_3k%45xb+86wd%u8h'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
+AUTHENTICATION_BACKENDS = [
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+]
 
 # Application definition
 
 INSTALLED_APPS = [
+    'modeltranslation',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,7 +52,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django.contrib.sites',
     'django_filters',
+    'django_apscheduler',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
     'news',
+    'sign',
+    'protect',
 ]
 
 MIDDLEWARE = [
@@ -50,6 +70,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    'django.middleware.locale.LocaleMiddleware',  # Локализация
+    'news.middlewares.TimezoneMiddleware',  # add that middleware!
+
 ]
 
 ROOT_URLCONF = 'NewsPortal.urls'
@@ -124,7 +148,157 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+DEFAULT_FROM_EMAIL = 'soulbrightproject@mail.ru'
 
 SITE_ID = 1
 
 STATICFILES_DIRS = [BASE_DIR / "static"]
+
+LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/'
+
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_USERNAME_REQUIRED = True
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_FORMS = {'signup': 'sign.models.BasicSignupForm'}
+
+EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_PORT = 465
+EMAIL_HOST_USER = 'SoulBrightProject'
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+
+EMAIL_USE_SSL = True
+
+APSCHEDULER_DATETIME_FORMAT = 'N j, Y, f:s a'
+APSCHEDULER_RUN_NOW_TIMEOUT = 25  # Seconds
+
+
+# Celery
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+
+
+# Cache
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': os.path.join(BASE_DIR, 'cache_files'), # Указываем, куда будем сохранять кэшируемые файлы! Не забываем создать папку cache_files внутри папки с manage.py!
+    }
+}
+
+# Логи
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'style': '{',
+    'formatters': {
+        'debug_format': {
+            'format': '%(asctime)s %(levelname)s %(message)s',
+            'datetime': '%d.%m.%Y %H:%M:%S'
+        },
+        'warning_format': {
+            'format': '%(asctime)s %(levelname)s %(message)s - %(pathname)s',
+            'datetime': '%d.%m.%Y %H:%M:%S'
+        },
+        'error_format': {
+            'format': '%(asctime)s %(levelname)s %(message)s - %(pathname)s - %(exc_info)s',
+            'datetime': '%d.%m.%Y %H:%M:%S'
+        },
+        'general_format': {
+            'format': '%(asctime)s %(levelname)s %(module)s - %(message)s',
+            'datetime': '%d.%m.%Y %H:%M:%S'
+        },
+    },
+    'filters': {
+        'require_debug_true': {
+            '()': 'django.utils.log.RequireDebugTrue',
+        },
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse',
+        },
+    },
+    'handlers': {
+        'console_debug': {
+            'level': 'DEBUG',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'debug_format'
+        },
+        'console_warning': {
+            'level': 'WARNING',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'warning_format'
+        },
+        'console_error': {
+            'level': 'ERROR',
+            'filters': ['require_debug_true'],
+            'class': 'logging.StreamHandler',
+            'formatter': 'error_format'
+        },
+        'general': {
+            'level': 'INFO',
+            'filename': "general.log",
+            'class': 'logging.FileHandler',
+            'formatter': 'general_format',
+            'filters': ['require_debug_false']
+        },
+        'errors': {
+            'level': 'ERROR',
+            'filename': "errors.log",
+            'class': 'logging.FileHandler',
+            'formatter': 'error_format',
+            'filters': ['require_debug_true']
+        },
+        'security': {
+            'filename': "security.log",
+            'class': 'logging.FileHandler',
+            'formatter': 'general_format',
+            'filters': ['require_debug_true']
+        },
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+            'filters': ['require_debug_false']
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console_debug', 'console_warning', 'console_error', 'general'],
+            'level': 'INFO',  # ! ! ! НЕ ЗАБЫТЬ ПОМЕНЯТЬ НА DEBUG ! ! !
+            'propagate': True,
+        },
+        'django.server': {
+            'handlers': ['errors', 'mail_admins'],
+        },
+        'django.template': {
+            'handlers': ['errors'],
+        },
+        'django.db_backends': {
+            'handlers': ['errors'],
+        },
+        'django.security': {
+            'handlers': ['security']
+        },
+        'django.request': {
+            'handlers': ['errors', 'mail_admins'],
+            'level': 'ERROR',
+            'propagate': False,
+        }
+    }
+}
+
+# Локализация
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale')
+]
+
+LANGUAGES =[
+    ('en-us', 'English'),
+    ('ru', 'Русский')
+]

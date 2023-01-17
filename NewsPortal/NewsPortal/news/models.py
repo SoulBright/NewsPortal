@@ -3,6 +3,8 @@ from django.contrib.auth.models import User
 from django.db.models import Sum
 from .resources import CATEGORY_CHOICES, ARTICLE
 
+from django.core.cache import cache
+
 
 class Author(models.Model):
     authorUser = models.OneToOneField(User, on_delete=models.CASCADE)
@@ -50,13 +52,26 @@ class Post(models.Model):
         self.rating -= 1
         self.save()
 
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)  # сначала вызываем метод родителя, чтобы объект сохранился
+        cache.delete(f'post-{self.pk}')  # затем удаляем его из кэша, чтобы сбросить его
+
 
 class Category(models.Model):
     name = models.CharField(max_length=64, unique=True)
     description = models.CharField(max_length=512)
+    subscribers = models.ManyToManyField(User, through='UserCategory')
 
     def __str__(self):
         return f"{self.name}"
+
+
+class UserCategory(models.Model):
+    subUser = models.ForeignKey(User, on_delete=models.CASCADE)
+    subCategory = models.ForeignKey(Category, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Пользователь - {self.subUser} подписан на категорию: {self.subCategory}"
 
 
 class PostCategory(models.Model):

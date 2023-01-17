@@ -1,0 +1,215 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-01-17 13:58+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: .\news\templates\categories_detail.html:7
+msgid "Category:"
+msgstr "Категория:"
+
+#: .\news\templates\categories_detail.html:10
+msgid "If you don't want to be notified of new articles, you can"
+msgstr "Если не хотите получать уведомление о новых статьях, вы можете"
+
+#: .\news\templates\categories_detail.html:11
+msgid "unsubscribe"
+msgstr "Отписаться"
+
+#: .\news\templates\categories_detail.html:13
+msgid "If you want to be notified of new articles, you can"
+msgstr "Если хотите получать уведомление о новых статьях, вы можете"
+
+#: .\news\templates\categories_detail.html:14
+msgid "subscribe"
+msgstr "Подписаться"
+
+#: .\news\templates\categories_list.html:3
+#: .\news\templates\categories_list.html:7
+msgid "All categories"
+msgstr "Все категории"
+
+#: .\news\templates\news_list.html:5 .\news\templates\news_list.html:28
+msgid "All news:"
+msgstr "Все новости:"
+
+#: .\news\templates\news_list.html:12
+msgid "Time zone:"
+msgstr "Часовой пояс:"
+
+#: .\news\templates\news_list.html:18 .\templates\base.html:28
+#: .\templates\main.html:17
+msgid "set"
+msgstr "Выбрать"
+
+#: .\news\templates\news_list.html:29
+msgid "There are currently"
+msgstr "Всего доступно"
+
+#: .\news\templates\news_list.html:29
+msgid "articles available."
+msgstr "новостей"
+
+#: .\news\templates\news_list.html:34
+msgid "Title"
+msgstr "Заголовок"
+
+#: .\news\templates\news_list.html:35
+msgid "Author"
+msgstr "Автор"
+
+#: .\news\templates\news_list.html:36
+msgid "Category"
+msgstr "Категория"
+
+#: .\news\templates\news_list.html:37
+msgid "Date creation"
+msgstr "Дата создания"
+
+#: .\news\templates\news_list.html:38
+msgid "Preview"
+msgstr "Превью"
+
+#: .\news\templates\news_list.html:56 .\news\templates\user_detail.html:16
+msgid "Edit"
+msgstr "Изменить"
+
+#: .\news\templates\news_list.html:57 .\news\templates\post_delete.html:7
+msgid "Delete"
+msgstr "Удалить"
+
+#: .\news\templates\news_list.html:68
+msgid "Add article"
+msgstr "Добавить статью"
+
+#: .\news\templates\news_list.html:73
+msgid "No news!"
+msgstr "Новостей нет!"
+
+#: .\news\templates\news_list.html:79
+msgid "Home"
+msgstr "В начало"
+
+#: .\news\templates\news_list.html:93
+msgid "End"
+msgstr "В конец"
+
+#: .\news\templates\post_create.html:3 .\news\templates\post_create.html:6
+msgid "Post Create"
+msgstr "Создать статью"
+
+#: .\news\templates\post_create.html:10
+msgid "Add Post"
+msgstr "Добавить статью"
+
+#: .\news\templates\post_delete.html:3
+msgid "News delete"
+msgstr "Удалить статью"
+
+#: .\news\templates\post_delete.html:16
+msgid "Confirm"
+msgstr "Подтвердить"
+
+#: .\news\templates\post_filter.html:3 .\templates\base.html:52
+msgid "Search"
+msgstr "Поиск"
+
+#: .\news\templates\post_filter.html:7
+msgid "Article Search:"
+msgstr "Поиск Статьи"
+
+#: .\news\templates\user_detail.html:9
+msgid "User detail:"
+msgstr "Сведения о пользователе"
+
+#: .\news\templates\user_detail.html:11
+msgid "username:"
+msgstr "username:"
+
+#: .\news\templates\user_detail.html:12
+msgid "first name:"
+msgstr "Имя:"
+
+#: .\news\templates\user_detail.html:13
+msgid "last name:"
+msgstr "Фамилия:"
+
+#: .\news\templates\user_update.html:3
+msgid "User update"
+msgstr "Обновить данные о пользователе"
+
+#: .\news\templates\user_update.html:6
+msgid "User Profile Editor:"
+msgstr "Редактор профиля пользователя"
+
+#: .\news\templates\user_update.html:11
+msgid "Edit Profile"
+msgstr "Редактировать Профиль"
+
+#: .\protect\templates\index.html:4
+msgid "Hello"
+msgstr "Здравствуйте"
+
+#: .\protect\templates\index.html:7
+msgid "I want a premium!"
+msgstr "Хочу премиум!"
+
+#: .\protect\templates\index.html:9
+msgid "Exit"
+msgstr "Выход"
+
+#: .\sign\templates\login.html:5 .\sign\templates\signup.html:5
+msgid "SignIn"
+msgstr "Авторизация"
+
+#: .\sign\templates\login.html:19
+msgid "Enter"
+msgstr "Выход"
+
+#: .\sign\templates\login.html:21
+msgid "SignUp"
+msgstr "Регистрация"
+
+#: .\sign\templates\logout.html:4
+msgid "You are logged out"
+msgstr "Вы вышли из системы"
+
+#: .\sign\templates\signup.html:9
+msgid "Сontinue"
+msgstr "Продолжить"
+
+#: .\templates\base.html:48
+msgid "Categories"
+msgstr "Категории"
+
+#: .\templates\base.html:56
+msgid "profile"
+msgstr "Профиль"
+
+#: .\templates\base.html:61
+msgid "Sign Out"
+msgstr "Выйти"
+
+#: .\templates\base.html:63
+msgid "Sign In / Sign Up"
+msgstr "Вход / Регистрация"
+
+#: .\templates\main.html:19
+msgid "SignUp/SignIn"
+msgstr "Вход/Регистрация"

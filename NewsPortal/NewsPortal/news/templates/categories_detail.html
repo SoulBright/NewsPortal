@@ -1,9 +1,21 @@
 {% extends 'base.html' %}
-
+{% load i18n %}
 {% block title %} {{ categories_detail }} {% endblock title %}
 
 
 {% block content %}
-    <h1> Категория: {{ categories_detail }} </h1>
-    <h3> {{ categories_detail. }} </h3>
+        <h1> {% trans "Category:" %} {{ category_self }} </h1>
+<hr>
+{% if is_subscribers %}
+    <b> {% trans "If you don't want to be notified of new articles, you can" %}</b>
+    <a class="btn" href="{% url 'unsubscribe' %}"><button type="submit" value="unfollow" name="pk" class="btn btn-light btn-outline-danger"> {% trans "unsubscribe" %}</button></a>
+    {% else %}
+    <b>{% trans "If you want to be notified of new articles, you can" %}</b>
+    <a class="btn" href="{% url 'subscribe' %}"><button type="submit" value="follow" name="pk" class="btn btn-light btn-outline-primary"> {% trans "subscribe" %}</button></a>
+    {% endif %}
+{% if categories_detail %}
+    {% for news in categories_detail %}
+        <h3> <a href="{% url 'news_detail' news.postThrough.id %}">{{ news.postThrough }}</a></h3>
+    {% endfor %}
+{% endif %}
 {% endblock content %}
